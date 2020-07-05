@@ -1,0 +1,99 @@
+cluster_name: mycluster-rancher        # You can set your own cluster name.
+
+ignore_docker_version: false           # Default container engine is docker.
+
+nodes:
+  - address: 192.168.0.21
+    user: root                         # username. you must have ssh access to the Server
+    role: [controlplane, etcd]         # [controlplane, worker, etcd]
+    hostname_override: node-01
+    labels:
+      type: master
+  - address: 192.168.0.22
+    user: root                         # username. you must have ssh access to the Server
+    hostname_override: node-02
+    role: [controlplane, etcd]         # [controlplane, worker, etcd]
+    labels:
+      type: master
+  - address: 192.168.0.23
+    user: root                         # username. you must have ssh access to the Server
+    hostname_override: node-03
+    role: [worker, etcd]               # [controlplane, worker, etcd]
+    labels:
+      type: worker
+  - address: 192.168.0.24
+    user: root                         # username. you must have ssh access to the Server
+    hostname_override: node-04
+    role: [worker ]                    # [controlplane, worker, etcd]
+    labels:
+      type: worker
+
+services:
+  etcd:
+    snapshot: true
+    creation: 6h
+    retention: 24h
+
+# Specify network plugin-in (canal, calico, flannel, weave, or none)
+network:
+    plugin: weave
+
+# Specify DNS provider (coredns or kube-dns)
+dns:
+    provider: coredns
+    
+# To enable ingress controller, set `provider: nginx`
+# `node_selector` controls ingress placement and is optional
+ingress:
+    provider: none
+
+# Add-ons are deployed using kubernetes jobs. RKE will give
+# up on trying to get the job status after this timeout in seconds..
+addon_job_timeout: 60
+
+# All add-on manifests MUST specify a namespace
+addons: |-
+    ---
+    kind: Namespace
+    apiVersion: v1
+    metadata:
+      name: cert-manager
+    ---
+    kind: Namespace
+    apiVersion: v1
+    metadata:
+      name: ingress-nginx
+    ---
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: cert-manager
+      labels:
+        certmanager.k8s.io/disable-validation: "true"
+    ---
+    kind: Namespace
+    apiVersion: v1
+    metadata:
+      name: cattle-system
+    ---
+    kind: Namespace
+    apiVersion: v1
+    metadata:
+      name: metallb-system
+    ---
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      namespace: metallb-system
+      name: config
+    data:
+      config: |
+        address-pools:
+        - name: default
+          protocol: layer2
+          addresses:
+          - 192.168.0.60-192.168.0.70
+
+addons_include:
+    - https://raw.githubusercontent.com/jetstack/cert-manager/release-0.9/deploy/manifests/00-crds.yaml # Install Cert Manager
+    - https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
