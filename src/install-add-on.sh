@@ -30,7 +30,7 @@ sudo apt-get update >/dev/null 2>&1
 apt-cache policy kubelet | head -n 20  >/dev/null 2>&1
 apt-cache policy docker.io | head -n 20  >/dev/null 2>&1
 sudo apt-get install -y kubectl >/dev/null 2>&1
-cd $home; mkdir .kube; cd k8s-rancher/src/
+cd $home; mkdir .kube; cd k8s-rancher-ha/src/
 cp kube_config_cluster.yaml $HOME/.kube/config
 
 apt install -y bash-completion

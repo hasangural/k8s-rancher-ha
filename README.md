@@ -51,7 +51,7 @@ ssh root@x.x.x.10
 
 git clone https://github.com/hasangural/k8s-rancher.git
 
-cd k8s-rancher/src
+cd k8s-rancher-ha/src
 
 ```
 
@@ -104,7 +104,7 @@ Once you done copying the ssh public key from the administrative host to the oth
 
 ```bash
 
-# you should be in directory which is <k8s-rancher/src/>  -- cd k8s-rancher/src/
+# you should be in directory which is <k8s-rancher-ha/src/>  -- cd k8s-rancher-ha/src/
 
 for server in ${IPS[*]}; do
     echo "Preparing Server > $server"
@@ -134,8 +134,7 @@ done
 Vanilla ubuntu nodes are ready to become Kubernetes Nodes. We have now to get RKE binaries from GitHub Repository.
 
 ```bash
-# you should be in directory which is <k8s-rancher/src/>  -- cd k8s-rancher/src/
-
+# you should be in directory which is <k8s-rancher-ha/src/>  -- cd k8s-rancher-ha/src/
 bash deploy-rke.sh
 
 ```
@@ -230,7 +229,7 @@ rke up --config "../src/cluster.yaml"
 Once the RKE deployment is done, you can deploy the other components via "**install-add-on.sh**" script. It implements ingress rule to your cluster also it configures certificate for your public endpoint.
 
 ```bash
-# you should be in directory which is <k8s-rancher/src/>  -- cd k8s-rancher/src/
+# you should be in directory which is <k8s-rancher-ha/src/>  -- cd k8s-rancher-ha/src/
 
 bash install-add-on.sh
 
