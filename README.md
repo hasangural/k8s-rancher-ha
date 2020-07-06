@@ -49,7 +49,7 @@ We start by cloning the k8s-rancher-cluster repository. It contains all the bash
 # Jump into client-01
 ssh root@x.x.x.10
 
-git clone https://github.com/hasangural/k8s-rancher.git
+git clone https://github.com/hasangural/k8s-rancher-ha.git
 
 cd k8s-rancher-ha/src
 
