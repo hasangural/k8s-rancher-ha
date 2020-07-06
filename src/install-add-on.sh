@@ -68,8 +68,8 @@ helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx
 #########################################################################################################################################
 echo "[TASK 4] Installing Cert Manager to your Cluster"
 # Install Cert-Manager Chart
-#kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.9.1/cert-manager.yaml --force >/dev/null 2>&1
-helm install cert-manager jetstack/cert-manager --version v0.9.1 --namespace cert-manager >/dev/null 2>&1
+kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.15.0/cert-manager.crds.yaml --force >/dev/null 2>&1
+helm install cert-manager jetstack/cert-manager --version v0.15.0 --namespace cert-manager >/dev/null 2>&1
 #########################################################################################################################################
 
 echo "[TASK 4.1] Waiting for pods in 'cert-manager' namespace"
@@ -77,7 +77,7 @@ echo "[TASK 4.1] Waiting for pods in 'cert-manager' namespace"
 # Waiting for pods in 'cert-manager' namespace
 while [[ $(kubectl get pods -n cert-manager -l app=webhook -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]
  do echo "Waiting for pods in 'cert-manager' namespace." && sleep 20 && 
-    kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.9.1/cert-manager.yaml --force >/dev/null 2>&1
+    kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.15.0/cert-manager.crds.yaml --force >/dev/null 2>&1
  done
 #########################################################################################################################################
 

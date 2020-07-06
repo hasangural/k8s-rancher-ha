@@ -95,5 +95,4 @@ addons: |-
           - 192.168.0.60-192.168.0.70
 
 addons_include:
-    - https://raw.githubusercontent.com/jetstack/cert-manager/release-0.9/deploy/manifests/00-crds.yaml # Install Cert Manager
     - https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
