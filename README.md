@@ -10,7 +10,7 @@
   ⚛️ 📄 🚀
 </h3>
 <h3 align="center">
-  This document will also be covering combination of using MetalLB, Nginx Ingress Controller and Rancher  on Bare Metal Server. 
+  This document will be covering also combination of using MetalLB, Nginx Ingress Controller and Rancher on Bare Metal Server. 
 </h3>
 
 - [What’s In This Document](#whats-in-this-document)
@@ -19,15 +19,17 @@
 - [Definition file of Kubernetes Cluster.](#definition-file-of-kubernetes-cluster)
   - [Deploying Kubernetes Cluster with RKE](#deploying-kubernetes-cluster-with-rke)
   - [Deploying and Configuring Addons into the Cluster with script](#deploying-and-configuring-addons-into-the-cluster-with-script)
+  - [Adding and Removing Kubernetes Nodes with RKE](#adding-and-removing-kubernetes-nodes-with-rke)
+  - [Updating Kubernetes Nodes with RKE](#updating-kubernetes-nodes-with-rke)
 
 ## What’s In This Document
-It will deploy fully configured and ready to use bare metal kubernetes cluster. In the end, you will have public endpoint to access your rancher interface.
+It will deploy fully configured and ready to use bare metal kubernetes cluster. In the end, you will have public endpoint to access your rancher web interface.
 ## Preparing Kubernetes Nodes
 
 *Name*|*IP*|*OS*|*RAM*|*CPU*|**Role**| 
 |----|----|----|----|----|----|
 *client-01* |*x.x.x.10* |*Ubuntu 18.04*|*4GB* |*2*| *[ Management Box ]*            |
-*node-01*   |*x.x.x.21* |*Ubuntu 18.04*|*8GB* |*4*| *[ controlplane, etcd ]*        |
+*node-01*   |*x.x.x.21* |*Ubuntu 18.04*|*16GB*|*4*| *[ controlplane, etcd ]*        |
 *node-02*   |*x.x.x.22* |*Ubuntu 18.04*|*16GB*|*4*| *[ controlplane, etcd ]*        |
 *node-03*   |*x.x.x.23* |*Ubuntu 18.04*|*16GB*|*4*| *[ worker, etcd ]*              |
 *node-04*   |*x.x.x.24* |*Ubuntu 18.04*|*16GB*|*4*| *[ worker ]*                    |
@@ -42,6 +44,12 @@ Due to configuration of LoadBalancer of MetalLB, you need to tell MetalLB to han
 *Starting IP address*|*Ending IP address*|*Service Type*|
 |----|----|----|
 *192.168.0.50* |*192.168.0.60* |*Load Balancer*|
+
+| | |
+|-|-|
+|`NOTE` |  You can follow your own entire range of `IP Addresses`. All of this completely an example.|
+
+---
 
 We start by cloning the k8s-rancher-cluster repository. It contains all the bash scripts and cluster definiation which we needed to set up a cluster.
 
@@ -259,7 +267,10 @@ You should be able to deploy with this script:
   ```
 </details>
 
-
+### Adding and Removing Kubernetes Nodes with RKE
+   **TBC**
+### Updating Kubernetes Nodes with RKE
+   **TBC**
 
 
 

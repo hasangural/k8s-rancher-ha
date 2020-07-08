@@ -37,3 +37,7 @@ sudo usermod -aG docker $USER
 # Activate Changes
 echo "[TASK 10] Activate Changes"
 newgrp docker
+
+# Activate Changes
+echo "[TASK 11] Rebooting your server  "
+/sbin/shutdown -r now
