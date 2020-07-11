@@ -3,14 +3,14 @@
   </a>
 </p>
 <h1 align="center">
-  Install Kubernetes on Bare Metal Server with Rancher Kubernetes Engine - Beta v-0.0.1
+  Deploy Kubernetes Cluster on Bare Metal Server with Rancher Kubernetes Engine - Beta v-0.0.1
 </h1>
 
 <h3 align="center">
   ⚛️ 📄 🚀
 </h3>
 <h3 align="center">
-  This document will be covering also combination of using MetalLB, Nginx Ingress Controller and Rancher on Bare Metal Server. 
+  This document will be covering also combination of using MetalLB, Nginx Ingress Controller, Dynamic NFS Storage Provider and Rancher on Bare Metal Server. 
 </h3>
 
 - [What’s In This Document](#whats-in-this-document)
@@ -28,11 +28,12 @@ It will deploy fully configured and ready to use bare metal kubernetes cluster. 
 
 *Name*|*IP*|*OS*|*RAM*|*CPU*|**Role**| 
 |----|----|----|----|----|----|
-*client-01* |*x.x.x.10* |*Ubuntu 18.04*|*4GB* |*2*| *[ Management Box ]*            |
-*node-01*   |*x.x.x.21* |*Ubuntu 18.04*|*16GB*|*4*| *[ controlplane, etcd ]*        |
-*node-02*   |*x.x.x.22* |*Ubuntu 18.04*|*16GB*|*4*| *[ controlplane, etcd ]*        |
-*node-03*   |*x.x.x.23* |*Ubuntu 18.04*|*16GB*|*4*| *[ worker, etcd ]*              |
-*node-04*   |*x.x.x.24* |*Ubuntu 18.04*|*16GB*|*4*| *[ worker ]*                    |
+*client-01* |*x.x.x.10* |*Ubuntu 18.04*|*4GB* |*2*| *[ Management Box ]*             |
+*node-01*   |*x.x.x.21* |*Ubuntu 18.04*|*16GB*|*4*| *[ controlplane, etcd ]*         |
+*node-02*   |*x.x.x.22* |*Ubuntu 18.04*|*16GB*|*4*| *[ controlplane, etcd ]*         |
+*node-03*   |*x.x.x.23* |*Ubuntu 18.04*|*16GB*|*4*| *[ worker, etcd ]*               |
+*node-04*   |*x.x.x.24* |*Ubuntu 18.04*|*16GB*|*4*| *[ worker ]*                     |
+*nfs-srv*   |*x.x.x.30* |*Ubuntu 18.04*|*4GB* |*4*| *[ NFS Storage for Kubernetes ]* |
 
 * Host Names can be defined in the cluster.yaml file so that you don't need to worry about it.
 * You can change the IP Adress Space. Static IPs on individual VMs.
@@ -243,10 +244,12 @@ bash install-add-on.sh
 
 ```
 You should be able to deploy with this script:
+
 * Configuring bash completion. Once you logout from session, you will be eligible for using completion.
 * Components of NGINX Ingress Controller 
 * Components of Cert Manager 
 * Components of Rancher onto your Kubernetes Cluster
+* Components of NFS Client Provisioner <**Optional**>
 
 <details>
   <summary>Click to expand - see example output of install-add-on script </summary>
@@ -264,6 +267,13 @@ You should be able to deploy with this script:
     "Waiting for pods in 'cert-manager' namespace."
     "[TASK 5] Adding Rancher Binaries to your Repo"
     "[TASK 5.1] Installing Rancher to your Cluster"
+    "[TASK 6] Installing NFS Client Provisioner to your Cluster"
+      "Do you want to use NFS Server as Dynamic Provisioner? [Y,n]"
+      "Please provide your NFS Server IP Address. eg: 192.168.0.121"
+      "Please provide your NFS Server root path.  eg: /exported/path"
+      "Would you like to use ReclaimPolicy for within StorageClass for your NFS Server? default: Delete [Delete,Retain]"
+      "Would you like to use different Storage ClassName for your NFS Server? default: nfs-server [Y/n]"
+         "What will be your storage class name?"
   ```
 </details>
 
