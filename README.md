@@ -13,7 +13,7 @@
   This document will be covering also combination of using MetalLB, Nginx Ingress Controller, Dynamic NFS Storage Provider and Rancher on Bare Metal Server. 
 </h3>
 
-- [What’s In This Document](#whats-in-this-document)
+- [What’s In This Document ⚡](#whats-in-this-document-)
 - [Preparing Kubernetes Nodes](#preparing-kubernetes-nodes)
   - [Enable SSH passwordless login](#enable-ssh-passwordless-login)
 - [Definition file of Kubernetes Cluster.](#definition-file-of-kubernetes-cluster)
@@ -22,13 +22,10 @@
   - [Adding and Removing Kubernetes Nodes with RKE](#adding-and-removing-kubernetes-nodes-with-rke)
   - [Updating Kubernetes Nodes with RKE](#updating-kubernetes-nodes-with-rke)
 
-## What’s In This Document
+## What’s In This Document ⚡
 It will deploy fully configured and ready to use bare metal kubernetes cluster. In the end, you will have public endpoint to access your rancher web interface.
 ## Preparing Kubernetes Nodes
 
-Function | MySQL / MariaDB | PostgreSQL | SQLite
-:------------ | :-------------| :-------------| :-------------
-substr | :heavy_check_mark: |   | :heavy_check_mark:
 
 *Name*|*IP*|*OS*|*RAM*|*CPU*|**Role**| 
 |----|----|----|----|----|----|
