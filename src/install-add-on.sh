@@ -102,33 +102,34 @@ echo -e "[TASK 6] Installing NFS Client Provisioner to your Cluster \e[92m<Optio
 echo -e "${BLUE}Do you want to use NFS Server as Dynamic Provisioner? [Y,n]${NOCOLOR}"
 read nfsinput
 if [[ $nfsinput == "Y" || $nfsinput == "y" ]]; then
+
         echo -e "${BLUE}Please provide your NFS Server IP Address. eg: 192.168.0.121${NOCOLOR}"
         read nfsipaddress
         echo -e "${BLUE}Please provide your NFS Server root path.  eg: /exported/path${NOCOLOR}"
         read nfspath
         echo -e "${BLUE}Would you like to use ReclaimPolicy for within StorageClass for your NFS Server? default: Delete [Delete,Retain]${NOCOLOR}"
         read nfsreclaim
-        if [ -z "$nfsreclaim" ]; then
-               nfsreclaim = "Delete"
-        else
-               nfsreclaim = "Retain"
-        fi
         echo -e "${BLUE}Would you like to use different Storage ClassName for your NFS Server? default: nfs-server [Y/n]${NOCOLOR}"
         read nfsclass
+        echo "Waiting for helm package to be ready"
+        helm repo add stable https://kubernetes-charts.storage.googleapis.com/ >/dev/null 2>&1
+        helm repo update >/dev/null 2>&1
+        kubectl create namespace nfs-provisioner >/dev/null 2>&1
         if [[ $nfsclass == "Y" || $nfsclass == "y" ]]; then
              echo e "${BLUE}What will be your storage class name?${NOCOLOR}"
              read nfsclassname
-             helm repo add stable https://kubernetes-charts.storage.googleapis.com/ >/dev/null 2>&1
-             helm repo update >/dev/null 2>&1
-             helm install nfs-provisioner --set nfs.server=$nfsipaddress \
+             helm install nfs-provisioner --namespace nfs-provisioner \
+                                          --set nfs.server=$nfsipaddress \
                                           --set nfs.path=$nfspath \
                                           --set storageClass.name=$nfsclassname \
-                                          --set storageClass.reclaimPolicy=$nfsreclaim stable/nfs-client-provisioner
+                                          --set storageClass.reclaimPolicy=$nfsreclaim stable/nfs-client-provisioner >/dev/null 2>&1
+             echo -e "${BLUE}You can use now NFS Dynamic Provisioner. - storage class name: nfs-server]${NOCOLOR}"                                          
         else
-            helm install nfs-provisioner --set nfs.server=$nfsipaddress \
+            helm install nfs-provisioner --namespace nfs-provisioner \
+                                         --set nfs.server=$nfsipaddress \
                                          --set nfs.path=$nfspath \
                                          --set storageClass.name=nfs-server \
-                                         --set storageClass.reclaimPolicy=$nfsreclaim stable/nfs-client-provisioner
+                                         --set storageClass.reclaimPolicy=$nfsreclaim stable/nfs-client-provisioner >/dev/null 2>&1
              echo -e "${BLUE}You can use now NFS Dynamic Provisioner. - storage class name: nfs-server]${NOCOLOR}"
         fi
 fi

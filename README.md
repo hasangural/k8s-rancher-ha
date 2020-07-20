@@ -26,6 +26,10 @@
 It will deploy fully configured and ready to use bare metal kubernetes cluster. In the end, you will have public endpoint to access your rancher web interface.
 ## Preparing Kubernetes Nodes
 
+Function | MySQL / MariaDB | PostgreSQL | SQLite
+:------------ | :-------------| :-------------| :-------------
+substr | :heavy_check_mark: |   | :heavy_check_mark:
+
 *Name*|*IP*|*OS*|*RAM*|*CPU*|**Role**| 
 |----|----|----|----|----|----|
 *client-01* |*x.x.x.10* |*Ubuntu 18.04*|*4GB* |*2*| *[ Management Box ]*             |
@@ -143,7 +147,7 @@ done
 Vanilla ubuntu nodes are ready to become Kubernetes Nodes. We have now to get RKE binaries from GitHub Repository.
 
 ```bash
-# you should be in directory which is <k8s-rancher-ha/src/>  -- cd k8s-rancher-ha/src/
+# you should be in directory which is <k8s-rancher-ha/src/>  -- 📁  cd k8s-rancher-ha/src/
 bash deploy-rke.sh
 
 ```
@@ -206,7 +210,7 @@ services:
 RKE uses a cluster configuration file, referred to as cluster.yml to determine what nodes will be in the cluster and how to deploy Kubernetes. There are many configuration options that can be set in the cluster.yml.You will have to manipulate cluster.yaml file regarding your structure. In our file, we will be assuming that configuration will apply your nodes.
 
 ```bash
-# you should be in directory which is <k8s-rancher/src/>  -- cd k8s-rancher/src/
+# you should be in directory which is <k8s-rancher/src/>  -- 📁 cd k8s-rancher/src/
 
 rke up --config "../src/cluster.yaml"
 
@@ -245,11 +249,11 @@ bash install-add-on.sh
 ```
 You should be able to deploy with this script:
 
-* Configuring bash completion. Once you logout from session, you will be eligible for using completion.
-* Components of NGINX Ingress Controller 
-* Components of Cert Manager 
-* Components of Rancher onto your Kubernetes Cluster
-* Components of NFS Client Provisioner <**Optional**>
+✔️ Configuring bash completion. Once you logout from session, you will be eligible for using completion.</br>
+✔️ Components of NGINX Ingress Controller </br>
+✔️ Components of Cert Manager </br>
+✔️ Components of Rancher onto your Kubernetes Cluster </br>
+✔️ Components of NFS Client Provisioner <**Optional**>
 
 <details>
   <summary>Click to expand - see example output of install-add-on script </summary>

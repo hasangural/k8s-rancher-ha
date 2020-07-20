@@ -9,5 +9,3 @@ echo "[TASK 3] RKE is now executable by running the following command"
 chmod +x rke
 rke --version
 
-echo "[TASK 4] Setting to be in directory of git repository"
-cd k8s-rancher-ha/src/
