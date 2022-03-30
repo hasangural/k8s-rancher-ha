@@ -41,7 +41,7 @@ It will deploy fully configured and ready to use bare metal kubernetes cluster. 
 * /etc/hosts hosts file includes name to IP mappings for all VMs. Attention that they should match within definition of cluster.yaml file
 * Take snapshots prior to installations, this way you can install and revert to snapshot if needed
 
-Due to configuration of LoadBalancer of MetalLB, you need to tell MetalLB to hand out addresses from the x.x.x.50-x.x.x.60 range, using layer 2 mode. Here is the example of configuration of configmap of MetalLB. You will need to remark this range into **cluster.yaml** file.
+Due to configuration of LoadBalancer of MetalLB, you need to tell MetalLB to hand out addresses from the x.x.x.50-x.x.x.60 range, using layer 2 mode. Here is the example of configuration of configmap of MetalLB. You will need to remark this range into **cluster.yaml** file
 
 *Starting IP address*|*Ending IP address*|*Service Type*|
 |----|----|----|
